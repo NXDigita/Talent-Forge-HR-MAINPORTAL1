@@ -12,6 +12,7 @@ export type NewProject = {
   stage: string;
   daysLeft: number;
   applicants: number;
+  assignedTo: string;
   milestones: { label: string; pct: number }[];
   escrow: { total: number; released: number; held: number; milestone: number; of: number };
 };
