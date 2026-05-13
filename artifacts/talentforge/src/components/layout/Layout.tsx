@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "wouter";
-import { LayoutDashboard, Search, ClipboardList, FolderOpen, CreditCard, Star, Settings, Menu, X } from "lucide-react";
+import { LayoutDashboard, Search, ClipboardList, FolderOpen, CreditCard, Star, Settings, Menu, X, Sparkles } from "lucide-react";
 import { CommandPalette } from "./CommandPalette";
 import { NotificationCenter } from "./NotificationCenter";
+import { AIMatchModal } from "../talent/AIMatchModal";
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const [location] = useLocation();
   const [cmdOpen, setCmdOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [aiMatchOpen, setAiMatchOpen] = useState(false);
 
   const navItems = [
     { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
@@ -100,8 +102,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
           </div>
 
           <div className="flex items-center gap-2 md:gap-4 ml-auto">
-            <button className="hidden sm:block bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-lg text-sm font-bold shadow-sm transition-colors">
-              + Post Project
+            <button
+              onClick={() => setAiMatchOpen(true)}
+              data-testid="btn-post-project-nav"
+              className="hidden sm:flex items-center gap-1.5 bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-lg text-sm font-bold shadow-sm transition-all hover:shadow-md hover:-translate-y-px"
+            >
+              <Sparkles className="w-3.5 h-3.5" />
+              AI Match
             </button>
             <NotificationCenter />
             <div className="flex items-center gap-2 pl-2 md:border-l">
@@ -116,6 +123,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </main>
       
       <CommandPalette open={cmdOpen} setOpen={setCmdOpen} />
+      <AIMatchModal open={aiMatchOpen} onClose={() => setAiMatchOpen(false)} />
     </div>
   );
 }
