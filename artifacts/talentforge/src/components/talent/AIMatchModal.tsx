@@ -273,8 +273,8 @@ export function AIMatchModal({ open, onClose }: Props) {
             <div className="px-6 py-3 bg-gray-50 border-b border-gray-100 flex items-center gap-2">
               {(["form", "analyzing", "results"] as Step[]).map((s, i) => (
                 <React.Fragment key={s}>
-                  <div className={`flex items-center gap-1.5 text-xs font-semibold transition-colors ${step === s ? "text-purple-600" : (["form", "analyzing", "results"].indexOf(step) > i ? "text-green-600" : "text-gray-400")}`}>
-                    <div className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold border transition-colors ${step === s ? "bg-purple-600 border-purple-600 text-white" : (["form", "analyzing", "results"].indexOf(step) > i ? "bg-green-500 border-green-500 text-white" : "border-gray-300 text-gray-400")}`}>
+                  <div className={`flex items-center gap-1.5 text-xs font-semibold transition-colors ${step === s ? "" : (["form", "analyzing", "results"].indexOf(step) > i ? "text-green-600" : "text-gray-400")}`} style={step === s ? { color: '#F6821F' } : {}}>
+                    <div className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold border transition-colors ${step === s ? "text-white" : (["form", "analyzing", "results"].indexOf(step) > i ? "bg-green-500 border-green-500 text-white" : "border-gray-300 text-gray-400")}`} style={step === s ? { background: '#F6821F', borderColor: '#F6821F' } : {}}>
                       {["form", "analyzing", "results"].indexOf(step) > i ? <Check className="w-3 h-3" /> : i + 1}
                     </div>
                     {s === "form" ? "Requirements" : s === "analyzing" ? "Analysis" : "Results"}
@@ -424,7 +424,7 @@ export function AIMatchModal({ open, onClose }: Props) {
                         <motion.div
                           animate={{ width: `${progress}%` }}
                           transition={{ duration: 0.3 }}
-                          className="h-full rounded-full bg-gradient-to-r from-purple-500 to-blue-500"
+                          className="h-full rounded-full" style={{ background: 'linear-gradient(90deg, #F6821F, #D97706)' }}
                         />
                       </div>
                       <div className="text-right mt-1 text-[11px] font-bold text-gray-400">{Math.round(progress)}%</div>
@@ -432,7 +432,7 @@ export function AIMatchModal({ open, onClose }: Props) {
                     <div className="grid grid-cols-3 gap-3 w-full max-w-xs text-center">
                       {[{ label: "Profiles Scanned", val: "2,543" }, { label: "Avg TFES", val: "81.4" }, { label: "Domains", val: "10" }].map((s) => (
                         <div key={s.label} className="bg-gray-50 rounded-xl p-3 border border-gray-100">
-                          <div className="font-mono text-purple-600 font-bold text-lg">{s.val}</div>
+                          <div className="font-mono font-bold text-lg" style={{ color: '#F6821F' }}>{s.val}</div>
                           <div className="text-[10px] text-gray-400 font-semibold uppercase tracking-wide">{s.label}</div>
                         </div>
                       ))}
@@ -442,11 +442,11 @@ export function AIMatchModal({ open, onClose }: Props) {
 
                 {step === "results" && (
                   <motion.div key="results" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="divide-y divide-gray-50">
-                    <div className="px-6 py-3 bg-gradient-to-r from-purple-50 to-blue-50 flex items-center justify-between">
+                    <div className="px-6 py-3 flex items-center justify-between" style={{ background: 'linear-gradient(90deg, #FFF8F1, #FEF3E2)' }}>
                       <div className="text-xs font-bold text-gray-600">
-                        Matching <span className="text-purple-700">"{title}"</span> — <span className="font-mono text-purple-600">{domain}</span> · Min TFES <span className="font-mono">{minTfes}</span> · {requiredTier}+
+                        Matching <span style={{ color: '#C2600A' }}>"{title}"</span> — <span className="font-mono" style={{ color: '#F6821F' }}>{domain}</span> · Min TFES <span className="font-mono">{minTfes}</span> · {requiredTier}+
                       </div>
-                      <button onClick={() => setStep("form")} className="text-xs font-bold text-purple-600 hover:text-purple-800 flex items-center gap-1 transition-colors">
+                      <button onClick={() => setStep("form")} className="text-xs font-bold flex items-center gap-1 transition-colors" style={{ color: '#F6821F' }}>
                         Edit requirements
                       </button>
                     </div>
@@ -539,7 +539,7 @@ export function AIMatchModal({ open, onClose }: Props) {
                                 </button>
                                 <button
                                   onClick={() => handleInvite(r.candidate.id)}
-                                  className={`text-[11px] font-bold px-3 py-1 rounded-lg transition-all flex items-center gap-1 ${isInvited ? "bg-green-100 text-green-700 border border-green-200" : "bg-purple-600 text-white hover:bg-purple-700 shadow-sm"}`}
+                                  className={`text-[11px] font-bold px-3 py-1 rounded-lg transition-all flex items-center gap-1 ${isInvited ? "bg-green-100 text-green-700 border border-green-200" : "text-white shadow-sm"}`} style={!isInvited ? { background: '#F6821F' } : {}}
                                   data-testid={`btn-invite-${r.candidate.id}`}
                                 >
                                   {isInvited ? <><Check className="w-3 h-3" /> Invited</> : <>Invite <ArrowRight className="w-3 h-3" /></>}
@@ -557,9 +557,9 @@ export function AIMatchModal({ open, onClose }: Props) {
                                 exit={{ opacity: 0, height: 0 }}
                                 className="overflow-hidden"
                               >
-                                <div className="mt-4 ml-10 pl-4 border-l-2 border-purple-100 space-y-2">
+                                <div className="mt-4 ml-10 pl-4 border-l-2 space-y-2" style={{ borderColor: 'rgba(246,130,31,0.2)' }}>
                                   <div className="text-[11px] text-gray-500 font-medium leading-relaxed">
-                                    <span className="text-purple-700 font-bold">AI Insight:</span> {r.explanation || `${r.candidate.name} shows strong alignment with your project requirements, particularly in ${r.matchedSkills.slice(0, 2).join(" and ")}.`}
+                                    <span className="font-bold" style={{ color: '#C2600A' }}>AI Insight:</span> {r.explanation || `${r.candidate.name} shows strong alignment with your project requirements, particularly in ${r.matchedSkills.slice(0, 2).join(" and ")}.`}
                                   </div>
                                   <div className="flex gap-4 text-[11px] text-gray-500">
                                     <span><span className="font-bold text-gray-700">{r.candidate.simulations}</span> Simulations</span>
@@ -594,7 +594,7 @@ export function AIMatchModal({ open, onClose }: Props) {
                   <button
                     onClick={handleRunMatch}
                     disabled={!title.trim()}
-                    className="flex items-center gap-2 bg-gradient-to-r from-purple-600 to-blue-600 text-white px-5 py-2.5 rounded-xl font-bold text-sm shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-md"
+                    className="flex items-center gap-2 text-white px-5 py-2.5 rounded-xl font-bold text-sm shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-md" style={{ background: 'linear-gradient(135deg, #F6821F, #D97706)' }}
                     data-testid="btn-run-ai-match"
                   >
                     <Zap className="w-4 h-4" /> Run AI Match
@@ -613,7 +613,7 @@ export function AIMatchModal({ open, onClose }: Props) {
                     <button onClick={() => setStep("form")} className="border border-gray-200 text-gray-700 px-4 py-2 rounded-xl font-bold text-sm hover:bg-white transition-colors" data-testid="btn-refine-match">
                       Refine
                     </button>
-                    <button onClick={onClose} className="bg-purple-600 text-white px-4 py-2 rounded-xl font-bold text-sm shadow-sm hover:bg-purple-700 transition-colors" data-testid="btn-done-match">
+                    <button onClick={onClose} className="text-white px-4 py-2 rounded-xl font-bold text-sm shadow-sm transition-colors" style={{ background: '#F6821F' }} data-testid="btn-done-match">
                       Done
                     </button>
                   </div>

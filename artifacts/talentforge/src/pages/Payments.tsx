@@ -89,7 +89,7 @@ export function Payments() {
                     <div className="font-mono font-bold text-green-600 text-sm">₹{p.escrow?.held.toLocaleString()}</div>
                     <div className="text-[10px] uppercase text-gray-400 font-bold mt-0.5">Ready to Release</div>
                   </div>
-                  <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-bold shadow transition-colors">Release</button>
+                  <button className="text-white px-4 py-2 rounded-lg text-sm font-bold shadow transition-colors" style={{ background: '#F6821F' }}>Release</button>
                 </div>
               </div>
             ))}

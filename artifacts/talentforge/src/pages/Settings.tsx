@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Building2, User, Bell, CreditCard, Shield } from "lucide-react";
+import { Building2, User, Bell, CreditCard, Shield, CheckCircle2 } from "lucide-react";
 
 export function Settings() {
   const [isSaving, setIsSaving] = useState(false);

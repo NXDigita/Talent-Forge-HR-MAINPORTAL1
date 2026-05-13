@@ -51,7 +51,7 @@ export function Pipeline() {
               <div className="space-y-3">
                 {PROJECTS.filter(p => p.stage === stage).map(project => (
                   <motion.div layoutId={project.id} key={project.id} className="bg-white p-4 rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow cursor-pointer" onClick={() => setSelectedProject(project.id)}>
-                    <div className="text-xs font-bold text-blue-600 bg-blue-50 inline-block px-2 py-1 rounded mb-2 uppercase tracking-wide">{project.domain}</div>
+                    <div className="text-xs font-bold inline-block px-2 py-1 rounded mb-2 uppercase tracking-wide" style={{ color: '#C2600A', background: 'rgba(246,130,31,0.1)' }}>{project.domain}</div>
                     <h4 className="font-bold text-gray-900 mb-2 leading-tight">{project.title}</h4>
                     <div className="flex items-center justify-between text-xs">
                       <span className="font-mono text-green-600 font-bold">₹{project.budget.toLocaleString()}</span>

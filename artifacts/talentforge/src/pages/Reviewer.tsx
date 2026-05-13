@@ -14,22 +14,24 @@ export function Reviewer() {
 
   return (
     <div className="max-w-5xl mx-auto space-y-8 pb-12">
-      <div className="bg-gradient-to-br from-indigo-900 to-purple-900 rounded-2xl p-8 text-white shadow-xl">
+      <div className="rounded-2xl p-8 text-white shadow-xl relative overflow-hidden" style={{ background: 'linear-gradient(135deg, hsl(224 25% 18%) 0%, hsl(224 25% 13%) 100%)' }}>
+        {/* Orange accent stripe */}
+        <div className="absolute top-0 left-0 right-0 h-1 rounded-t-2xl" style={{ background: 'linear-gradient(90deg, #F6821F, #D97706)' }} />
         <div className="flex items-center gap-4 mb-6">
-          <div className="w-16 h-16 rounded-full bg-white/20 flex items-center justify-center text-xl font-bold border-2 border-white/40">MJ</div>
+          <div className="w-16 h-16 rounded-xl flex items-center justify-center text-xl font-bold border-2" style={{ background: 'rgba(246,130,31,0.2)', borderColor: 'rgba(246,130,31,0.4)', color: '#F6821F' }}>MJ</div>
           <div>
-            <h1 className="text-2xl font-bold">Meena Joshi</h1>
-            <p className="text-indigo-200 font-medium">Senior Engineer · AutoSense Labs</p>
+            <h1 className="text-2xl font-bold" style={{ color: 'hsl(40 22% 92%)' }}>Meena Joshi</h1>
+            <p className="font-medium" style={{ color: 'hsl(224 12% 60%)' }}>Senior Engineer · AutoSense Labs</p>
           </div>
         </div>
-        <div className="flex gap-8">
+        <div className="flex gap-10">
           <div>
             <div className="text-4xl font-bold font-mono text-green-400">14</div>
-            <div className="text-sm font-medium uppercase tracking-widest text-indigo-200 mt-1">Reviews Done</div>
+            <div className="text-sm font-medium uppercase tracking-widest mt-1" style={{ color: 'hsl(224 12% 55%)' }}>Reviews Done</div>
           </div>
           <div>
-            <div className="text-4xl font-bold font-mono text-amber-400">3</div>
-            <div className="text-sm font-medium uppercase tracking-widest text-indigo-200 mt-1">Pending</div>
+            <div className="text-4xl font-bold font-mono" style={{ color: '#F6821F' }}>3</div>
+            <div className="text-sm font-medium uppercase tracking-widest mt-1" style={{ color: 'hsl(224 12% 55%)' }}>Pending</div>
           </div>
         </div>
       </div>

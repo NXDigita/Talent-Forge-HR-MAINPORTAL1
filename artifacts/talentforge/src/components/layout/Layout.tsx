@@ -120,7 +120,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
             </button>
             <NotificationCenter />
             <div className="flex items-center gap-2 pl-2 md:border-l">
-              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-500 to-indigo-500 text-white flex items-center justify-center font-bold text-sm shadow-sm">RS</div>
+              <div className="w-8 h-8 rounded-full text-white flex items-center justify-center font-bold text-sm shadow-sm" style={{ background: 'linear-gradient(135deg, #F6821F, #D97706)' }}>RS</div>
               <span className="text-sm font-bold text-gray-900 hidden sm:block">Rahul S.</span>
             </div>
           </div>

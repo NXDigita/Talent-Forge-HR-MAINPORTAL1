@@ -40,13 +40,13 @@ export function Dashboard() {
           <div className="relative z-10">
             <h1 className="text-3xl font-extrabold text-gray-900 mb-2">Good morning, Rahul 👋</h1>
             <p className="text-gray-600 font-medium mb-6">
-              You have <strong className="text-blue-600">3 active projects</strong> · <strong className="text-amber-600">7 pending reviews</strong> · <strong className="text-green-600">2 payment approvals</strong> due
+              You have <strong style={{ color: '#F6821F' }}>3 active projects</strong> · <strong className="text-amber-600">7 pending reviews</strong> · <strong className="text-green-600">2 payment approvals</strong> due
             </p>
             <div className="flex gap-3 flex-wrap">
               <button
                 onClick={() => setAiMatchOpen(true)}
                 data-testid="btn-ai-match-dashboard"
-                className="flex items-center gap-2 bg-gradient-to-r from-purple-600 to-blue-600 text-white px-5 py-3 rounded-xl font-bold shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all text-sm"
+                className="flex items-center gap-2 text-white px-5 py-3 rounded-xl font-bold shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all text-sm" style={{ background: 'linear-gradient(135deg, #F6821F, #D97706)' }}
               >
                 <Sparkles className="w-4 h-4" /> Run AI Match
               </button>
@@ -124,7 +124,7 @@ export function Dashboard() {
         <div>
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
-              <div className="w-6 h-6 rounded-md bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center">
+              <div className="w-6 h-6 rounded-md flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #F6821F, #D97706)' }}>
                 <Sparkles className="w-3.5 h-3.5 text-white" />
               </div>
               <h3 className="text-base font-bold text-gray-900">AI Recommended for Your Active Project</h3>
@@ -132,7 +132,7 @@ export function Dashboard() {
             <button
               onClick={() => setAiMatchOpen(true)}
               data-testid="btn-run-match-section"
-              className="flex items-center gap-1.5 text-xs font-bold text-purple-600 hover:text-purple-800 border border-purple-200 hover:border-purple-400 px-3 py-1.5 rounded-lg transition-all hover:bg-purple-50"
+              className="flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-lg transition-all" style={{ color: '#F6821F', border: '1px solid rgba(246,130,31,0.3)' }}
             >
               <Sparkles className="w-3 h-3" /> Run AI Match
             </button>

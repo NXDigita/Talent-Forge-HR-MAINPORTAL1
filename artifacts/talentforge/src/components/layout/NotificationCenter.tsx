@@ -24,16 +24,16 @@ export function NotificationCenter() {
               <div className="text-xs text-gray-500">ESP32 IoT Dashboard project is ready for your review.</div>
               <div className="text-[10px] text-gray-400 mt-2 font-bold uppercase">2 hours ago</div>
             </div>
-            <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
+            <div className="w-2 h-2 rounded-full mt-2 flex-shrink-0" style={{ background: '#F6821F' }}></div>
           </div>
           <div className="p-4 border-b hover:bg-gray-50 cursor-pointer flex gap-3">
-            <div className="mt-1 flex-shrink-0 text-blue-500"><MessageSquare className="w-4 h-4" /></div>
+            <div className="mt-1 flex-shrink-0" style={{ color: '#F6821F' }}><MessageSquare className="w-4 h-4" /></div>
             <div>
               <div className="text-sm font-medium text-gray-900 mb-1">New message from Priya S.</div>
               <div className="text-xs text-gray-500">"I've updated the Python pipeline according to the specs."</div>
               <div className="text-[10px] text-gray-400 mt-2 font-bold uppercase">5 hours ago</div>
             </div>
-            <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
+            <div className="w-2 h-2 rounded-full mt-2 flex-shrink-0" style={{ background: '#F6821F' }}></div>
           </div>
           <div className="p-4 hover:bg-gray-50 cursor-pointer flex gap-3">
             <div className="mt-1 flex-shrink-0 text-amber-500"><AlertCircle className="w-4 h-4" /></div>

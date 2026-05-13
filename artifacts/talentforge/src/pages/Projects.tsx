@@ -24,7 +24,7 @@ export function Projects() {
           { label: "Completed", value: "1", icon: ShieldCheck }
         ].map((stat, i) => (
           <div key={i} className="bg-white border p-4 rounded-xl shadow-sm flex items-center gap-4">
-            <div className="p-3 bg-blue-50 text-blue-600 rounded-lg">
+            <div className="p-3 rounded-lg" style={{ background: 'rgba(246,130,31,0.1)', color: '#F6821F' }}>
               <stat.icon className="w-5 h-5" />
             </div>
             <div>
@@ -44,7 +44,7 @@ export function Projects() {
             
             <div className="flex items-start justify-between mb-4">
               <div>
-                <span className="inline-block px-2 py-1 bg-blue-50 text-blue-700 text-[10px] font-bold uppercase tracking-widest rounded mb-3">{project.domain}</span>
+                <span className="inline-block px-2 py-1 text-[10px] font-bold uppercase tracking-widest rounded mb-3" style={{ background: 'rgba(246,130,31,0.1)', color: '#C2600A' }}>{project.domain}</span>
                 <h3 className="text-lg font-bold text-gray-900 leading-tight mb-1 pr-8">{project.title}</h3>
                 <div className="text-sm text-gray-500 capitalize">{project.stage} stage • {project.tier} required</div>
               </div>
@@ -65,10 +65,10 @@ export function Projects() {
               <div className="mb-6">
                 <div className="flex justify-between text-xs font-medium mb-2">
                   <span className="text-gray-500">Escrow Milestone {project.escrow.milestone}/{project.escrow.of}</span>
-                  <span className="font-mono text-blue-600 font-bold">₹{project.escrow.released.toLocaleString()} released</span>
+                  <span className="font-mono font-bold" style={{ color: '#F6821F' }}>₹{project.escrow.released.toLocaleString()} released</span>
                 </div>
                 <div className="w-full bg-gray-100 rounded-full h-2 overflow-hidden">
-                  <div className="bg-blue-500 h-2 rounded-full transition-all duration-1000" style={{ width: `${(project.escrow.released / project.escrow.total) * 100}%` }}></div>
+                  <div className="h-2 rounded-full transition-all duration-1000" style={{ width: `${(project.escrow.released / project.escrow.total) * 100}%`, background: 'linear-gradient(90deg, #F6821F, #D97706)' }}></div>
                 </div>
               </div>
             )}
