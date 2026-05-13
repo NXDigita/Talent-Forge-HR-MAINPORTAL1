@@ -5,6 +5,7 @@ import { BarChart, Bar, PieChart, Pie, Cell, ResponsiveContainer, XAxis, YAxis, 
 import { Sparkles, Star, ArrowRight } from "lucide-react";
 import { CANDIDATES } from "../data/mockData";
 import { AIMatchModal } from "../components/talent/AIMatchModal";
+import { ActivityFeed } from "../components/dashboard/ActivityFeed";
 
 const RECOMMENDED = CANDIDATES.filter((c) => [94, 91, 88, 85].includes(c.aiMatch ?? 0)).slice(0, 4);
 
@@ -209,31 +210,8 @@ export function Dashboard() {
           </div>
         </div>
 
-        {/* Recent Activity */}
-        <div className="bg-white rounded-2xl border shadow-sm p-6">
-          <div className="flex items-center justify-between mb-6">
-            <h3 className="text-lg font-bold text-gray-900">Recent Activity</h3>
-            <Link href="/pipeline" className="text-sm text-primary font-bold hover:underline">View All</Link>
-          </div>
-          <div className="space-y-4">
-            {[
-              { icon: "✅", title: "Arjun K. submitted Milestone 2", sub: "ESP32 project", time: "2h ago" },
-              { icon: "💳", title: "₹7,333 payment released to Priya S.", sub: "Python Pipeline M1", time: "5h ago" },
-              { icon: "🆕", title: "8 new candidates matched", sub: "Firmware Project — via AI Match", time: "8h ago" },
-              { icon: "⭐", title: "Vikram R. rated 4.9★", sub: "by reviewer Meena J.", time: "1d ago" },
-              { icon: "📋", title: "New project \"CAD Assembly\" posted", sub: "SolidWorks · Mechanical", time: "1d ago" },
-            ].map((act, i) => (
-              <div key={i} className="flex items-start gap-4 p-3 rounded-xl hover:bg-gray-50 transition-colors" data-testid={`activity-${i}`}>
-                <div className="text-xl bg-gray-100 w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0">{act.icon}</div>
-                <div className="flex-1">
-                  <div className="font-bold text-sm text-gray-900">{act.title}</div>
-                  <div className="text-xs text-gray-500">{act.sub}</div>
-                </div>
-                <div className="text-xs font-bold text-gray-400 uppercase flex-shrink-0">{act.time}</div>
-              </div>
-            ))}
-          </div>
-        </div>
+        {/* Live Activity Feed */}
+        <ActivityFeed />
       </div>
 
       <AIMatchModal open={aiMatchOpen} onClose={() => setAiMatchOpen(false)} />
