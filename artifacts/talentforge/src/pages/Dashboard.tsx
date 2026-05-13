@@ -34,7 +34,7 @@ export function Dashboard() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className="p-8 rounded-3xl border shadow-lg relative overflow-hidden"
-          style={{ background: 'linear-gradient(135deg, #EEF2FF 0%, #F5F3FF 100%)' }}
+          style={{ background: 'linear-gradient(135deg, #FFF8F1 0%, #FEF3E2 100%)' }}
         >
           <div className="absolute right-0 top-0 bottom-0 w-1/3 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 mix-blend-overlay pointer-events-none" />
           <div className="relative z-10">

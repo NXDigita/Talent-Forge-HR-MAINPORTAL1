@@ -23,44 +23,52 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
   const SidebarContent = () => (
     <>
-      <div className="p-6 border-b border-border/50">
+      <div className="p-6 border-b" style={{ borderColor: 'hsl(224 18% 22%)' }}>
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded bg-secondary flex items-center justify-center text-white font-bold">TF</div>
+            <div className="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-sm" style={{ background: 'hsl(28 92% 54%)', color: '#fff' }}>TF</div>
             <div>
-              <div className="font-bold text-foreground leading-tight">TalentForge</div>
-              <div className="text-xs text-muted-foreground">HR Portal</div>
+              <div className="font-bold leading-tight" style={{ color: 'hsl(40 22% 92%)' }}>TalentForge</div>
+              <div className="text-xs" style={{ color: 'hsl(224 12% 55%)' }}>HR Portal</div>
             </div>
           </div>
-          <button className="md:hidden" onClick={() => setMobileMenuOpen(false)}><X className="w-5 h-5 text-gray-500" /></button>
+          <button className="md:hidden" onClick={() => setMobileMenuOpen(false)}><X className="w-5 h-5" style={{ color: 'hsl(224 12% 55%)' }} /></button>
         </div>
-        <div className="bg-muted p-3 rounded-lg border border-border/50 flex items-center gap-3">
-          <div className="w-10 h-10 rounded bg-primary text-white flex items-center justify-center font-bold">AL</div>
+        <div className="p-3 rounded-xl flex items-center gap-3" style={{ background: 'hsl(224 18% 22%)', border: '1px solid hsl(224 15% 27%)' }}>
+          <div className="w-10 h-10 rounded-lg flex items-center justify-center font-bold text-sm" style={{ background: 'hsl(28 92% 54%)', color: '#fff' }}>AL</div>
           <div>
-            <div className="font-medium text-sm">AutoSense Labs</div>
-            <div className="text-[10px] text-green-600 bg-green-100 px-1.5 py-0.5 rounded-full inline-block mt-1 uppercase tracking-wider font-bold">Employer Pro</div>
+            <div className="font-semibold text-sm" style={{ color: 'hsl(40 22% 92%)' }}>AutoSense Labs</div>
+            <div className="text-[10px] px-1.5 py-0.5 rounded-full inline-block mt-1 uppercase tracking-wider font-bold" style={{ color: '#4ade80', background: 'rgba(74,222,128,0.12)', border: '1px solid rgba(74,222,128,0.25)' }}>Employer Pro</div>
           </div>
         </div>
       </div>
-      <nav className="flex-1 p-4 space-y-1 overflow-y-auto">
+      <nav className="flex-1 p-4 space-y-0.5 overflow-y-auto">
         {navItems.map((item) => {
           const isActive = location === item.href || location.startsWith(item.href + "/");
           return (
             <Link key={item.href} href={item.href} onClick={() => setMobileMenuOpen(false)}>
-              <div className={`flex items-center gap-3 px-3 py-2.5 rounded-md cursor-pointer transition-all duration-200 ${isActive ? "bg-primary/10 text-primary border-l-4 border-primary font-bold" : "text-muted-foreground font-medium hover:bg-muted hover:text-foreground hover:translate-x-1"}`}>
-                <item.icon className="w-5 h-5" />
+              <div
+                className="flex items-center gap-3 px-3 py-2.5 rounded-lg cursor-pointer transition-all duration-200"
+                style={isActive
+                  ? { background: 'rgba(246,130,31,0.15)', color: 'hsl(28 92% 65%)', borderLeft: '3px solid hsl(28 92% 54%)', fontWeight: 700 }
+                  : { color: 'hsl(224 12% 60%)', fontWeight: 500, borderLeft: '3px solid transparent' }
+                }
+                onMouseEnter={(e) => { if (!isActive) { (e.currentTarget as HTMLDivElement).style.background = 'hsl(224 18% 21%)'; (e.currentTarget as HTMLDivElement).style.color = 'hsl(40 22% 88%)'; } }}
+                onMouseLeave={(e) => { if (!isActive) { (e.currentTarget as HTMLDivElement).style.background = 'transparent'; (e.currentTarget as HTMLDivElement).style.color = 'hsl(224 12% 60%)'; } }}
+              >
+                <item.icon className="w-4 h-4 flex-shrink-0" />
                 <span className="text-sm">{item.label}</span>
               </div>
             </Link>
           );
         })}
       </nav>
-      <div className="p-4 border-t border-border/50">
-        <div className="bg-gradient-to-br from-blue-50 to-blue-100 border border-blue-200 p-4 rounded-xl shadow-sm">
-          <div className="text-sm font-medium mb-1 text-blue-900">Active Projects: 3</div>
-          <div className="text-sm font-medium mb-1 text-blue-900">Pending Reviews: 7</div>
-          <div className="text-xs text-blue-700/80 font-bold uppercase tracking-wider mt-3 mb-1">Escrow Held</div>
-          <div className="font-mono text-green-600 font-bold text-xl">₹85,000</div>
+      <div className="p-4" style={{ borderTop: '1px solid hsl(224 18% 22%)' }}>
+        <div className="p-4 rounded-xl" style={{ background: 'hsl(224 18% 21%)', border: '1px solid hsl(224 15% 26%)' }}>
+          <div className="text-sm font-medium mb-1" style={{ color: 'hsl(40 18% 80%)' }}>Active Projects: <span className="font-bold" style={{ color: 'hsl(28 92% 65%)' }}>3</span></div>
+          <div className="text-sm font-medium mb-3" style={{ color: 'hsl(40 18% 80%)' }}>Pending Reviews: <span className="font-bold" style={{ color: 'hsl(37 88% 62%)' }}>7</span></div>
+          <div className="text-[10px] font-bold uppercase tracking-widest mb-1" style={{ color: 'hsl(224 12% 50%)' }}>Escrow Held</div>
+          <div className="font-mono font-bold text-xl" style={{ color: '#4ade80' }}>₹85,000</div>
         </div>
       </div>
     </>
@@ -69,7 +77,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen flex bg-background w-full font-sans">
       {/* Desktop Sidebar */}
-      <aside className="w-[260px] hidden md:flex flex-col border-r bg-white/80 backdrop-blur-xl sticky top-0 h-screen z-40">
+      <aside className="w-[260px] hidden md:flex flex-col border-r sticky top-0 h-screen z-40" style={{ background: 'hsl(224 25% 16%)', borderColor: 'hsl(224 18% 22%)' }}>
         <SidebarContent />
       </aside>
 
@@ -77,7 +85,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       {mobileMenuOpen && (
         <div className="fixed inset-0 z-50 flex md:hidden">
           <div className="fixed inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setMobileMenuOpen(false)}></div>
-          <aside className="w-[280px] flex flex-col bg-white h-full relative shadow-2xl">
+          <aside className="w-[280px] flex flex-col h-full relative shadow-2xl" style={{ background: 'hsl(224 25% 16%)' }}>
             <SidebarContent />
           </aside>
         </div>

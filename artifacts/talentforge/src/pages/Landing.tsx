@@ -17,27 +17,35 @@ export function Landing() {
       </header>
 
       <main>
-        <section className="relative overflow-hidden py-24 px-6 text-center" style={{ background: 'linear-gradient(135deg, #EEF2FF 0%, #F5F3FF 40%, #FFF7ED 100%)' }}>
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} className="max-w-4xl mx-auto space-y-6">
-            <div className="inline-block bg-white text-xs font-semibold px-3 py-1 rounded-full border shadow-sm">
+        <section className="relative overflow-hidden py-28 px-6 text-center" style={{ background: 'linear-gradient(135deg, #FFF8F1 0%, #FDF6ED 45%, #FAF5E8 100%)' }}>
+          {/* Subtle noise texture overlay */}
+          <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")" }} />
+          {/* Warm glow orbs */}
+          <div className="absolute top-0 left-1/4 w-96 h-96 rounded-full opacity-20 blur-3xl pointer-events-none" style={{ background: 'radial-gradient(circle, #F6821F 0%, transparent 70%)' }} />
+          <div className="absolute bottom-0 right-1/4 w-80 h-80 rounded-full opacity-15 blur-3xl pointer-events-none" style={{ background: 'radial-gradient(circle, #FBBF24 0%, transparent 70%)' }} />
+
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} className="relative max-w-4xl mx-auto space-y-6">
+            <div className="inline-flex items-center gap-2 bg-white/90 text-xs font-semibold px-4 py-1.5 rounded-full border shadow-sm" style={{ borderColor: '#E8D5B8', color: '#92400E' }}>
               🚀 India's #1 Engineering Talent Marketplace
             </div>
-            <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight text-gray-900">
+            <h1 className="font-display text-5xl md:text-7xl font-bold tracking-tight" style={{ color: '#1A1F2E', lineHeight: 1.05 }}>
               Hire Engineers <br />
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-500 to-blue-500">
+              <span className="bg-clip-text text-transparent" style={{ backgroundImage: 'linear-gradient(135deg, #F6821F 0%, #D97706 100%)', WebkitBackgroundClip: 'text' }}>
                 Through Proof of Work
               </span>
             </h1>
-            <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">
-              An investor-demo-ready, premium enterprise SaaS platform where companies hire engineers based on verified simulation scores, blockchain credentials, and AI-powered matching — not resumes.
+            <p className="text-lg md:text-xl max-w-2xl mx-auto leading-relaxed" style={{ color: '#6B5E4A' }}>
+              Skip the resume. Discover engineers through verified simulations,
+              real project scores, and blockchain-backed skill credentials.
+              AI-matched hiring at ₹18K avg cost vs ₹40K traditional.
             </p>
-            <div className="flex justify-center gap-4 pt-4">
-              <Link href="/talent" className="bg-primary text-white px-8 py-4 rounded-lg font-semibold text-lg shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all">
+            <div className="flex justify-center gap-4 pt-4 flex-wrap">
+              <Link href="/talent" className="inline-flex items-center gap-2 text-white px-8 py-4 rounded-xl font-semibold text-base shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all" style={{ background: 'linear-gradient(135deg, #F6821F, #E07315)' }}>
                 Explore Talent Pool →
               </Link>
-              <button className="bg-white border text-foreground px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-50 transition-colors">
-                Watch Demo
-              </button>
+              <Link href="/dashboard" className="inline-flex items-center gap-2 px-8 py-4 rounded-xl font-semibold text-base hover:-translate-y-0.5 transition-all bg-white shadow-sm" style={{ color: '#1A1F2E', border: '1px solid #E8D5B8' }}>
+                ▶ Go to Dashboard
+              </Link>
             </div>
           </motion.div>
         </section>
