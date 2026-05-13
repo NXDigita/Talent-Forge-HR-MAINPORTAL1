@@ -1,0 +1,751 @@
+BUILD: TalentForge HR Portal — Engineering Talent Marketplace
+BRAND: Nexoraai.co | TalentForge
+STACK: React 18 + TypeScript + Vite + TailwindCSS + shadcn/ui
+       + Framer Motion + Recharts + Lucide Icons
+MODE:  No auth. No login. No signup. Direct dashboard access.
+       All data from inline mock JSON. Client demo MVP only.
+
+═══════════════════════════════════════════════════════════════
+DESIGN SYSTEM
+═══════════════════════════════════════════════════════════════
+Philosophy: GitHub productivity + Vercel SaaS elegance +
+            Cloudflare clarity + Anthropic/Claude pastel warmth.
+            Premium enterprise SaaS. Investor-demo ready.
+
+Base palette:
+  Page bg:        #F5F5F5   chromium grey
+  Surface:        #FFFFFF   cards, panels
+  Elevated:       #FAFAFA   inputs, table rows
+  Border:         #E5E7EB   all dividers
+  Text primary:   #111827
+  Text secondary: #6B7280
+  Text muted:     #9CA3AF
+
+Pastel accent suite:
+  --blue:    #3B82F6   primary CTA, links, active nav
+  --purple:  #8B5CF6   TFES score, badges, talent signals
+  --orange:  #F97316   warnings, pending, highlights
+  --green:   #22C55E   hired, verified, paid, success
+  --teal:    #14B8A6   AI match, recommendations
+  --rose:    #F43F5E   alerts, overdue, critical
+
+Frosted glass cards:
+  background: rgba(255,255,255,0.85)
+  backdrop-filter: blur(12px)
+  border: 1px solid rgba(255,255,255,0.6)
+  border-radius: 1rem (rounded-2xl)
+  box-shadow: 0 4px 24px rgba(0,0,0,0.06)
+  hover: shadow 0 8px 32px rgba(0,0,0,0.10), translateY(-2px)
+
+Gradient hero bg:
+  linear-gradient(135deg, #EEF2FF 0%, #F5F3FF 40%, #FFF7ED 100%)
+
+Typography: Inter (all weights) from Google Fonts
+  H1: 48px 800 | H2: 30px 700 | H3: 20px 600
+  Body: 14px 400 | Label: 11px 500 uppercase tracking-wide
+  Monospace: JetBrains Mono — scores, amounts, hashes, IDs
+
+Badges (pill, 10px uppercase, Inter 600):
+  VERIFIED:   bg #DCFCE7 text #15803D border #86EFAC
+  EXPERT:     bg #EDE9FE text #6D28D9 border #C4B5FD
+  HIRED:      bg #DBEAFE text #1D4ED8 border #93C5FD
+  PENDING:    bg #FEF3C7 text #92400E border #FCD34D
+  AI MATCH:   bg #CCFBF1 text #0F766E border #5EEAD4
+  AVAILABLE:  bg #DCFCE7 text #15803D
+  REVIEWING:  bg #FEF3C7 text #92400E
+
+Animations (Framer Motion):
+  Page entry: opacity 0→1, y:20→0, duration 0.4s ease
+  Cards: staggered fade-in 0.08s each
+  Gauges: SVG arc fill 0→value on mount
+  Charts: Recharts animationDuration=800
+  Modals: scale 0.95→1, opacity 0→1
+  Sidebar items: hover translateX(3px)
+
+═══════════════════════════════════════════════════════════════
+NAVIGATION & LAYOUT (ALL ROUTES)
+═══════════════════════════════════════════════════════════════
+React Router v6. No auth guards. All routes publicly accessible.
+
+Routes:
+  /              → Landing Page
+  /dashboard     → HR Dashboard
+  /talent        → Talent Discovery
+  /candidate/:id → Candidate Portfolio
+  /pipeline      → Hire Pipeline
+  /projects      → Project Manager
+  /payments      → Escrow & Payments
+  /reviewer      → Reviewer Panel
+  /settings      → Settings
+
+STICKY GLASSMORPHISM SIDEBAR (260px, all dashboard routes):
+  Logo: TF hexagon icon purple + "TalentForge" bold + "HR Portal" muted
+  ─────────────────────────────────────────────
+  Company card:
+    "AutoSense Labs" + "autosenselabs.com"
+    "Employer Pro" badge green + avatar "AL" blue circle
+  ─────────────────────────────────────────────
+  Navigation items (Lucide icons):
+  Active state: bg #EEF2FF border-l-3 #3B82F6 text #3B82F6
+    🏠 Dashboard          /dashboard
+    🔍 Talent Discovery   /talent
+    📋 Hire Pipeline      /pipeline
+    📁 Projects           /projects
+    💳 Payments           /payments
+    ⭐ Reviewer Panel     /reviewer
+    ─────────────────────────────
+    ⚙️  Settings          /settings
+  ─────────────────────────────────────────────
+  Bottom stats card (pastel blue gradient):
+    "Active Projects: 3"
+    "Pending Reviews: 7"
+    "Escrow Held: ₹85,000" monospace green
+
+TOP NAVBAR (sticky, frosted glass, border-bottom):
+  Left:  Breadcrumb: TalentForge > [current page]
+  Center: Command search "⌘K Search candidates, projects..."
+           (opens command palette modal on click)
+  Right: [+ Post Project] blue button
+         🔔 Bell (badge 3 red dot)
+         Avatar "RS" purple + "Rahul Sharma · AutoSense Labs"
+
+═══════════════════════════════════════════════════════════════
+PAGE 1: / — LANDING PAGE
+═══════════════════════════════════════════════════════════════
+HERO SECTION:
+  bg: gradient #EEF2FF → #F5F3FF → #FFF7ED
+  Eyebrow chip: "🚀 India's #1 Engineering Talent Marketplace"
+               white pill, border #E5E7EB, shadow-sm
+
+  H1 (48px 800, two lines):
+    "Hire Engineers" white/dark
+    "Through Proof of Work" — gradient text
+    background: linear-gradient(135deg, #8B5CF6, #3B82F6)
+    -webkit-background-clip: text
+
+  Sub (18px #6B7280, max-width 560px):
+    "Skip the resume. Discover engineers through verified simulations,
+     real project scores, and blockchain-backed skill credentials.
+     AI-matched hiring at ₹18K avg cost vs ₹40K traditional."
+
+  Two CTAs:
+    [Explore Talent Pool →] blue primary 48px
+    [Watch Demo] ghost outline with ▶ icon
+
+  Animated dashboard preview card (Framer Motion float animation):
+    Mini screenshot of the dashboard with blur edges
+    Shows: TFES gauge, candidate cards, pipeline stages
+    shadow: 0 32px 80px rgba(0,0,0,0.12)
+
+STATS STRIP (white card, full width):
+  50M+ | Target Graduate Pool
+  2,500+ | Verified Candidates
+  500+ | Companies Hiring
+  91.2% | Avg Match Quality
+  Each: number 36px 800 dark, label 12px muted
+
+FEATURE GRID (3×2, frosted glass cards):
+  🧠 AI Psychometric Engine
+     "Adaptive testing across 12 skill dimensions"
+  ⚡ CIE Simulation Grading
+     "Auto-evaluated ECE, Mechanical, CS work"
+  🏆 TFES Score System
+     "Living employability score updated with every project"
+  🔗 Blockchain Credentials
+     "NFT badges on Polygon — tamper-proof verification"
+  💼 Escrow-Safe Hiring
+     "Milestone payments released on verified delivery"
+  🎯 Zero-Resume Hiring
+     "Skill scorecards replace CVs entirely"
+
+TRUSTED COMPANIES STRIP:
+  "Trusted by India's fastest-growing engineering companies"
+  6 company logo placeholder boxes (grey, rounded, subtle)
+
+CANDIDATE STATS SECTION:
+  Title: "Real Engineers. Real Work. Real Scores."
+  Three domain showcase cards:
+  ECE Card: Avatar + "Arjun K. · TFES 87 · Expert"
+            "⚡ 8 NFT Badges · 23 Projects · ₹1.24L earned"
+  Mech Card: "Vikram R. · TFES 79 · Practitioner"
+             "⚙️ 5 NFT Badges · 11 Projects · ₹63K earned"
+  DS Card:   "Kavya M. · TFES 88 · Expert"
+             "🧠 6 NFT Badges · 19 Projects · ₹1.38L earned"
+
+CTA BANNER:
+  bg: linear-gradient(135deg, #8B5CF6 0%, #3B82F6 100%)
+  "Ready to hire through proof of work?"
+  [Start Hiring Free →] white button text purple
+  Sub: "No credit card. First hire guaranteed or full refund."
+
+FOOTER: 4-column, links, social icons, © Nexoraai.co 2025
+
+═══════════════════════════════════════════════════════════════
+PAGE 2: /dashboard — HR DASHBOARD
+═══════════════════════════════════════════════════════════════
+GREETING CARD (gradient bg #EEF2FF → #F5F3FF, rounded-2xl):
+  "Good morning, Rahul 👋"
+  "You have 3 active projects · 7 pending reviews · 2 payment approvals due"
+  Right: [+ Post New Project] blue [View Pipeline →] ghost
+
+KPI CARDS (4-col grid, frosted glass):
+  Card 1 — Active Hires:
+    Icon: Users (blue circle bg)
+    "3" large 800 blue + "Projects Running"
+    Trend: "↑ 2 from last month" green
+  Card 2 — Pending Reviews:
+    Icon: ClipboardCheck (amber)
+    "7" amber + "Awaiting Approval"
+    "Oldest: 3 days ago" muted
+  Card 3 — Escrow Held:
+    Icon: Shield (green)
+    "₹85,000" monospace green + "In active escrow"
+    "3 milestones pending release"
+  Card 4 — Avg TFES Score (hires):
+    Icon: Star (purple)
+    "86" monospace purple + "/100 avg hired"
+    "↑ 4pts vs last quarter" green
+
+2-COL CHARTS ROW:
+  LEFT — TFES Distribution (Recharts BarChart):
+    Title: "TFES Score Distribution — Candidate Pool"
+    X: score ranges 60-70, 70-80, 80-90, 90-100
+    Y: candidate count
+    Bars: purple gradient, cornerRadius 4
+    Data: 12, 28, 41, 19
+
+  RIGHT — Domain Breakdown (Recharts PieChart/DonutChart):
+    Title: "Pipeline by Engineering Domain"
+    Segments: ECE 28%, Mech 18%, CS 22%, EEE 12%, DS 20%
+    Colors: blue, orange, purple, green, teal
+    Legend right-aligned
+
+RECOMMENDED CANDIDATES (horizontal scroll, 4 cards):
+  Title: "⚡ AI Recommended for Your Active Project"
+  Each card (200px width, frosted glass):
+    Avatar circle + Name + City
+    TFES badge purple + Tier
+    AI Match % teal chip (94%, 91%, 88%, 85%)
+    Top 3 skill tags
+    [View Profile →] link
+
+PIPELINE OVERVIEW (mini Kanban, 5 cols):
+  Title: "Hire Pipeline — Quick View"
+  Cols: Invited | Applied | Reviewing | Hired | Complete
+  Counts: 8 | 5 | 7 | 3 | 12
+  Each column: pill with count + mini candidate avatar stack (3)
+  [Open Full Pipeline →] link bottom-right
+
+RECENT ACTIVITY FEED (right panel or bottom):
+  Title: "Recent Activity"
+  Timeline items with icons + timestamps:
+  ✅ Arjun K. submitted Milestone 2 — ESP32 project · 2h ago
+  💳 ₹7,333 payment released to Priya S. · 5h ago
+  🆕 8 new candidates matched to "Firmware Project" · 8h ago
+  ⭐ Vikram R. rated 4.9★ by reviewer Meena J. · 1d ago
+  📋 New project "CAD Assembly" posted · 1d ago
+
+═══════════════════════════════════════════════════════════════
+PAGE 3: /talent — TALENT DISCOVERY
+═══════════════════════════════════════════════════════════════
+SEARCH HEADER (white card, sticky):
+  Large search: "🔍 Search by name, skill, domain, college, city..."
+               rounded-2xl, shadow-sm, bg white
+  AI suggestions dropdown: ["STM32 experts", "Python ML", "Load Flow EEE"]
+  Right: [Grid ⊞] [List ≡] toggle + "52 candidates found"
+
+FILTER SIDEBAR (260px, frosted glass):
+  ── Engineering Domain ──
+  Checkboxes: ECE | EEE | Mechanical | CS | Data Science
+              Civil | AI/ML | Robotics | Embedded | Cloud
+  ── TFES Score Range ──
+  Dual slider: 60 ← ●━━━━━━━━● → 100
+  Current: "Min: 75 — Max: 100"
+  ── Tier Level ──
+  Pills (toggle): All | Apprentice | Practitioner | Expert | Master
+  ── Availability ──
+  Pills: Available Now | Within 2 Weeks | 1 Month
+  ── Skills ──
+  Tag input with suggestions: [STM32 ×] [FreeRTOS ×] [+Add]
+  ── Location ──
+  Select: All India | Tamil Nadu | Maharashtra | Telangana
+  ── Project Rate ──
+  Pills: ₹5K-15K | ₹15K-30K | ₹30K-50K | ₹50K+
+  [Apply Filters] blue full-width [Clear All] ghost
+
+CANDIDATE GRID (3-col, filtered in real-time):
+  Each card (frosted glass, rounded-2xl, hover lift):
+    TOP: Avatar 48px + Name bold + Location chip muted
+         "Available" green dot + status
+    TFES: Large "87" purple 700 monospace + "/100"
+          Thin arc SVG progress (purple, 0→87%)
+    TIER: "Expert Tier 🟣" badge purple
+    DOMAIN: "ECE · Embedded Systems" blue pastel chip
+    4 MINI STATS (2×2 grid inside card):
+      Sims: 47 | Projects: 23
+      Badges: 8 | Rating: 4.9★
+    SKILLS: 4 tag pills (truncated, +N more)
+    EARNINGS: "₹1,24,000 earned · 4.9★ avg rating"
+    AI MATCH (if project active): "AI Match: 94%" teal badge
+    BOTTOM ACTIONS:
+      [View Journey →] outline | [Invite] blue
+
+  Quick Preview Modal (on card hover, Framer Motion):
+    Slide-in side panel (380px right)
+    Shows: Full skill radar (Recharts Radar), top 3 sim scores,
+    recent badges, "Invite to Project" CTA
+
+CANDIDATES MOCK DATA (12 cards):
+  1. Arjun K.     · Coimbatore · ECE Embedded  · TFES 87 · Expert     · ₹1.24L
+  2. Priya S.     · Pune       · CS/Data Sci    · TFES 82 · Practitioner· ₹87.5K
+  3. Vikram R.    · Hyderabad  · Mechanical FEA · TFES 79 · Practitioner· ₹63K
+  4. Deepa K.     · Chennai    · EEE Power      · TFES 84 · Expert     · ₹91K
+  5. Ravi T.      · Coimbatore · CS Full Stack   · TFES 76 · Practitioner· ₹54K
+  6. Kavya M.     · Bangalore  · Data Science    · TFES 88 · Expert     · ₹1.38L
+  7. Suresh P.    · Madurai    · ECE IoT         · TFES 74 · Practitioner· ₹48K
+  8. Anitha R.    · Trichy     · EEE Automation  · TFES 81 · Expert     · ₹72K
+  9. Karthik S.   · Chennai    · Robotics        · TFES 86 · Expert     · ₹1.1L
+  10. Meera V.    · Pune       · AI/ML           · TFES 91 · Master     · ₹1.62L
+  11. Dinesh B.   · Ahmedabad  · Civil Structural · TFES 72 · Practitioner· ₹41K
+  12. Pooja N.    · Bangalore  · Cloud DevOps    · TFES 83 · Expert     · ₹96K
+
+═══════════════════════════════════════════════════════════════
+PAGE 4: /candidate/:id — CANDIDATE PORTFOLIO (HERO PAGE)
+═══════════════════════════════════════════════════════════════
+PROFILE HEADER (gradient card, rounded-2xl):
+  Left: Avatar 72px + Name 24px 800 + "Expert Tier 🟣"
+        "ECE · Embedded Systems · Coimbatore, Tamil Nadu"
+        "PSG Tech · Graduated 2023"
+        Tags: [Available Now ✓] [Open to Projects]
+  Center: TFES GAUGE (SVG arc, 120px):
+    Purple arc fills 0→87% on mount (Framer Motion)
+    "87" center large purple monospace
+    "/100 TFES" below muted
+    "+5 this month" green sub
+  Right: [💬 Message] ghost [📋 Invite to Project] blue
+         Blockchain strip: "8 NFT Credentials · Polygon PoS ✓" green
+
+BIO & SUMMARY CARD (frosted glass):
+  Title: "AI-Generated Engineering Summary"
+  Purple gradient left border (4px)
+  "Arjun Kumar is an Expert-tier Embedded Systems engineer with
+   verified proficiency in STM32, FreeRTOS, and ESP32 development.
+   47 completed simulations · 98/100 peak score · 4.9★ avg rating.
+   Top 3% of ECE candidates on TalentForge platform."
+  Tags: [STM32] [FreeRTOS] [ESP32] [ARM Cortex] [UART/SPI/I2C]
+        [RTOS] [Circuit Design] [IoT] — each pastel chip
+
+3-COL METRICS ROW:
+  Simulations: "47" blue large + sparkline trend
+  Projects Done: "23" green + "₹1,24,000 earned"
+  Avg Score: "91.2%" purple + "Last 10 sims"
+
+TABS ROW (sticky below header):
+  [Overview] [Simulations] [Projects] [NFT Badges] [Documents] [Reviews]
+
+── OVERVIEW TAB ──
+  2-COL: Skills Radar + Score Progression
+
+  LEFT — RECHARTS RADARCHART (260px):
+    6 axes: Technical | Domain | Problem Solving
+            Communication | Collaboration | Consistency
+    Candidate: [92,89,84,78,82,76] — blue fill
+    Platform avg: [74,72,70,68,75,70] — grey dashed
+    Legend: "Arjun K." vs "ECE Average"
+
+  RIGHT — SCORE PROGRESSION (Recharts LineChart):
+    Title: "TFES Score — 12 Month History"
+    Line: blue, area fill light blue, dot markers
+    Data: 62,65,69,71,74,76,79,81,83,84,85,87
+    X: Jan–Dec · Y: 60–100
+    ReferenceLine at 80: "Practitioner threshold" dashed
+
+── SIMULATIONS TAB ──
+  Table (with Framer Motion stagger rows):
+  Cols: # | Project | Domain | Score | Key Result | Date | Status
+  10 rows with realistic ECE simulation data
+  Score column: ≥85 green, 70-84 amber, <70 red
+  Status: Minted (green pill) / Partial (amber) / Pending
+
+── NFT BADGES TAB ──
+  3-col grid of badge cards (frosted glass):
+  Each: emoji icon large + credential name + score
+        "Polygon PoS ✓" + hash monospace purple
+        [🔗 Verify on Chain] teal link
+  8 badges for Arjun K.
+
+── REVIEWS TAB ──
+  3 reviewer comments (card with star rating):
+  Avatar + Reviewer name + Company + Date
+  Star rating (5-star) + comment text
+  "Deliverable met all specs. Timing was excellent." etc.
+
+STICKY HIRE ACTION BAR (bottom, frosted glass, border-top):
+  Left: "Arjun Kumar · Expert ECE · TFES 87/100"
+  Center: Budget: [₹_____] input + [Required Tier ▾]
+  Right: [💼 Create Project & Invite →] blue large
+         "Escrow-protected · Pay on milestone delivery"
+
+═══════════════════════════════════════════════════════════════
+PAGE 5: /pipeline — HIRE PIPELINE
+═══════════════════════════════════════════════════════════════
+PIPELINE STAGE HEADER (horizontal pills connected):
+  [Posted 4] → [AI Matched 12] → [Invited 8] →
+  [Applied 5] → [Reviewing 7] → [Hired 3] → [Working 3] → [Done 12]
+  Each pill: stage name + count badge + status color
+  Click → filters table below to that stage
+
+ACTIVE PROJECTS TABLE (shadcn DataTable):
+  Cols: ● Status | Project | Domain | Budget | Applicants | Stage | Due | Action
+  [+ New Project] button top right
+
+  ● WORKING    ESP32 IoT Dashboard        ECE      ₹22,000   8    Working   5d   [Manage]
+  ● REVIEWING  Firmware STM32 Sensor      Embedded ₹35,000   5    Review    3d   [Review]
+  ● INVITED    Python ETL Pipeline        CS/DS    ₹28,000   12   Invited   7d   [View]
+  ● POSTED     SolidWorks Gear Assembly   Mech     ₹18,000   0    Posted    12d  [Boost]
+  ● COMPLETE   React HR Dashboard         CS       ₹32,000   —    Done      —    [Pay Now]
+  ● WORKING    Load Flow Analysis         EEE      ₹24,000   6    Working   4d   [Manage]
+
+  Row click → expands inline details (applicant list)
+
+KANBAN VIEW (toggle from table):
+  6 columns with drag-styled cards
+  Each card: project name + budget chip + days left + candidate count
+  Column headers: color-coded status
+
+APPLICATIONS SIDE PANEL (slides in right on row click):
+  "Applications — ESP32 IoT Dashboard (8 candidates)"
+  Each applicant row:
+    Avatar + Name + TFES badge + AI Match% + Domain
+    [View Journey] | [✓ Accept] green | [✗ Decline] ghost
+
+POST NEW PROJECT MODAL (shadcn Sheet from right):
+  Step 1 — Details:
+    Title + Description textarea
+    Domain [select] + Difficulty [select] + Duration [input]
+    Required Tier [select] + Min TFES [slider: 70]
+  Step 2 — Budget:
+    ₹ Budget input + Escrow toggle ✅
+    Milestone split: 33% / 33% / 34%
+  Step 3 — AI Match:
+    [🤖 Run AI Match] button → shows 5 matched candidates
+  [Post Project & Activate Escrow →] blue
+
+═══════════════════════════════════════════════════════════════
+PAGE 6: /payments — ESCROW & PAYMENTS
+═══════════════════════════════════════════════════════════════
+4 KPI CARDS:
+  Total Spent: "₹3,24,000" green monospace + "18 projects"
+  Escrow Held: "₹85,000" blue + "3 active holds"
+  Avg Per Hire: "₹18,000" purple + "vs ₹40K industry"
+  Savings:      "₹1,80,000" green + "60% cost reduction"
+
+SPEND CHART (Recharts AreaChart, full width):
+  Title: "Monthly Spend vs Industry Average — 12 Months"
+  Series 1: Our spend (blue filled) | Series 2: Industry (grey dashed)
+  Green shaded "Savings Zone" between the two lines
+  Toggle: 6M | 12M | All Time
+
+ESCROW WALLET (prominent white card):
+  Title: "Active Escrow Holds"
+  Balance: "₹85,000 held" large blue monospace
+  Table:
+  Project            | Candidate  | Total  | Held   | Milestone | Action
+  ESP32 IoT Dash     | Arjun K.   | ₹22K   | ₹7,333 | 2 of 3    | [Release ₹7,333]
+  Firmware Sensor    | Priya S.   | ₹35K   | ₹35K   | 1 of 3    | [View Progress]
+  Load Flow EEE      | Deepa K.   | ₹28K   | ₹42,667| 1 of 3    | [View Progress]
+
+  [Release] → opens Milestone Release Modal:
+    "Release Payment — Milestone 2/3"
+    Candidate: Arjun K. | Amount: ₹7,333
+    CIE Verified: ✅ Score 94/100 | Peer Review: ✅ 4.9★
+    [✓ Confirm Release ₹7,333] green [Request Revision] ghost
+    "Funds reach candidate in 24 hours via Razorpay"
+
+PAYMENT HISTORY TABLE:
+  Cols: Date | Project | Candidate | Amount | Type | Status | Receipt
+  10 rows, "Completed" green pills, [View Receipt] links
+
+ROI COMPARISON (2 mini charts):
+  Left: Cost per hire bar — Our: ₹18K vs Industry: ₹40K (green vs grey)
+  Right: Outcome donut — On Time 77%, Early 17%, Late 6%
+
+═══════════════════════════════════════════════════════════════
+PAGE 7: /reviewer — REVIEWER PANEL
+═══════════════════════════════════════════════════════════════
+REVIEWER: "Meena Joshi · Senior Engineer · AutoSense Labs"
+
+PENDING REVIEWS (list, sorted by urgency):
+  Each item (white card, left status border):
+  🔴 URGENT  Arjun K. — ESP32 Milestone 2    Due: Today    [Review Now]
+  🟡 REVIEW  Priya S. — Python Pipeline M1   Due: Tomorrow [Review Now]
+  ⚪ PENDING  Vikram R. — CAD Assembly        Due: 3 days   [Review]
+
+REVIEW MODAL (full-screen sheet):
+  Left panel — Submission:
+    Document/file preview (PDF viewer placeholder)
+    "Submission: esp32_dashboard_v2.zip"
+    "Submitted: 14 Jan 2025 · 10:42 AM"
+    CIE Auto-Score: "94/100" green badge
+    "CIE verified: All 5 acceptance criteria passed"
+
+  Right panel — Reviewer Actions:
+    Star rating selector (1-5 interactive)
+    Comment textarea: "Add your review..."
+    Checklist:
+      ☑ Functionality meets spec
+      ☑ Code quality acceptable
+      ☑ Documentation complete
+      ☐ Performance optimized
+    [✅ Approve & Trigger Milestone] green
+    [⚠️ Request Revision] amber
+    [❌ Reject Submission] red ghost
+
+COMPLETED REVIEWS (table, recent 10):
+  Candidate | Project | Score | Rating | Decision | Date
+
+═══════════════════════════════════════════════════════════════
+COMMAND PALETTE (⌘K global):
+═══════════════════════════════════════════════════════════════
+Modal overlay, centered, frosted glass:
+  Search: "Search candidates, projects, actions..."
+  Sections:
+    Candidates: → 3 recent viewed
+    Quick Actions: [+ Post Project] [Run AI Match] [Release Payment]
+    Recent Pages: Dashboard | Pipeline | Payments
+    Keyboard nav: ↑↓ Enter Esc
+
+═══════════════════════════════════════════════════════════════
+NOTIFICATION CENTER (bell dropdown):
+═══════════════════════════════════════════════════════════════
+Badge: "3" red dot on bell icon
+Dropdown (320px frosted glass):
+  "Notifications (3 unread)"
+  ─────────────────────────────
+  🔵 Arjun K. submitted Milestone 2 · 2h ago
+  🟡 Payment ₹7,333 awaiting approval · 5h ago
+  🟢 8 candidates matched to Firmware project · 8h ago
+  ─────────────────────────────
+  [Mark all read] | [View all]
+
+═══════════════════════════════════════════════════════════════
+COMPLETE MOCK DATA (inline in src/data/mockData.ts)
+═══════════════════════════════════════════════════════════════
+export const COMPANIES = [
+  {id:"c1",name:"AutoSense Labs",domain:"IoT/Embedded",
+   hires:18,spend:324000,plan:"Employer Pro"},
+  {id:"c2",name:"PowerGrid Dynamics",domain:"EEE/Power"},
+  {id:"c3",name:"MechVenture India",domain:"Mechanical"},
+  {id:"c4",name:"DataCore Analytics",domain:"Data Science"},
+  {id:"c5",name:"GrowthHive",domain:"Business/SaaS"}
+]
+
+export const CANDIDATES = [
+  {id:"arjun-k", name:"Arjun Kumar", city:"Coimbatore",
+   college:"PSG Tech", domain:"ECE", specialization:"Embedded Systems",
+   tier:"Expert", tfes:87, simulations:47, projects:23, badges:8,
+   earned:124000, rating:4.9, available:true, aiMatch:94,
+   skills:["STM32","FreeRTOS","ESP32","ARM Cortex","UART","SPI","I2C","C"],
+   scores:{technical:92,domain:89,problem:84,comms:78,collab:82,consistency:76},
+   progression:[62,65,69,71,74,76,79,81,83,84,85,87],
+   badges:[
+     {name:"IoT Systems Expert",score:98,hash:"0x9f3a...d21c"},
+     {name:"Embedded C Pro",score:94,hash:"0x4b2e...f87a"},
+     {name:"STM32 Specialist",score:91,hash:"0x7c1d...b93f"},
+     {name:"FreeRTOS Practitioner",score:88,hash:"0x2a8f...c14e"},
+     {name:"Circuit Design Pro",score:96,hash:"0x6e3b...a29d"},
+     {name:"ESP32 Advanced",score:93,hash:"0x1f9c...d78b"},
+     {name:"ARM Cortex Dev",score:89,hash:"0x8d4f...e32c"},
+     {name:"Protocol Expert",score:87,hash:"0x3a7b...f91e"}
+   ],
+   simulations:[
+     {id:"s47",project:"ESP32 IoT Dashboard",domain:"ECE",
+      score:98,result:"Pass Rate 99%",date:"Jan 2025",status:"minted"},
+     {id:"s46",project:"UART STM32 Comm",domain:"Embedded",
+      score:94,result:"Timing ✓",date:"Jan 2025",status:"minted"},
+     {id:"s44",project:"ARM Bare-Metal",domain:"Embedded",
+      score:91,result:"GPIO 100%",date:"Dec 2024",status:"minted"},
+     {id:"s41",project:"FreeRTOS Scheduler",domain:"RTOS",
+      score:73,result:"Deadlock ⚠",date:"Dec 2024",status:"partial"},
+     {id:"s39",project:"Circuit Rectifier",domain:"ECE",
+      score:96,result:"Waveform 96%",date:"Nov 2024",status:"minted"}
+   ],
+   reviews:[
+     {reviewer:"Dr. Karthik M.",company:"ISRO Chennai",rating:5,
+      comment:"Exceptional embedded C skills. Delivered ahead of schedule.",
+      date:"Jan 2025"},
+     {reviewer:"Preethi S.",company:"Bosch India",rating:5,
+      comment:"Clean FreeRTOS implementation. Protocol handling excellent.",
+      date:"Dec 2024"},
+     {reviewer:"Arjun V.",company:"AutoSense Labs",rating:4.8,
+      comment:"Strong IoT architecture. Minor documentation gaps only.",
+      date:"Nov 2024"}
+   ]
+  },
+  {id:"priya-s",name:"Priya Sharma",city:"Pune",domain:"CS",
+   specialization:"Data Science",tier:"Practitioner",tfes:82,
+   simulations:31,projects:17,badges:6,earned:87500,rating:4.8,
+   available:true,aiMatch:81,
+   skills:["Python","TensorFlow","SQL","Pandas","XGBoost","Sklearn","BERT"]},
+  {id:"vikram-r",name:"Vikram Reddy",city:"Hyderabad",domain:"Mechanical",
+   specialization:"FEA/CAD",tier:"Practitioner",tfes:79,
+   simulations:24,projects:11,badges:5,earned:63000,rating:4.7,
+   available:true,aiMatch:72,
+   skills:["SolidWorks","ANSYS","AutoCAD","CATIA","FEA","GD&T"]},
+  {id:"deepa-k",name:"Deepa Kumar",city:"Chennai",domain:"EEE",
+   specialization:"Power Systems",tier:"Expert",tfes:84,
+   simulations:38,projects:19,badges:7,earned:91000,rating:4.9,
+   available:true,aiMatch:88,
+   skills:["Load Flow","ETAP","Relay Coordination","SCADA","PLC","MATLAB"]},
+  {id:"kavya-m",name:"Kavya Menon",city:"Bangalore",domain:"DS",
+   specialization:"ML/AI",tier:"Expert",tfes:88,
+   simulations:29,projects:16,badges:6,earned:138000,rating:4.9,
+   available:true,aiMatch:91,
+   skills:["XGBoost","BERT","MLflow","PyTorch","SQL","Spark"]},
+  {id:"karthik-s",name:"Karthik Suresh",city:"Chennai",domain:"Robotics",
+   specialization:"ROS/Control",tier:"Expert",tfes:86,
+   simulations:33,projects:18,badges:7,earned:110000,rating:4.8,
+   available:false,aiMatch:85,
+   skills:["ROS2","Python","OpenCV","SLAM","Gazebo","C++"]}
+]
+
+export const PROJECTS = [
+  {id:"p1",title:"ESP32 IoT Dashboard for Factory Floor",
+   domain:"ECE",budget:22000,tier:"Practitioner",stage:"working",
+   daysLeft:5,applicants:8,assignedTo:"arjun-k",
+   escrow:{total:22000,released:14667,held:7333,milestone:2,of:3}},
+  {id:"p2",title:"STM32 Firmware Sensor Array",
+   domain:"Embedded",budget:35000,tier:"Expert",stage:"reviewing",
+   daysLeft:3,applicants:5,assignedTo:"priya-s",
+   escrow:{total:35000,released:0,held:35000,milestone:1,of:3}},
+  {id:"p3",title:"Python ETL Data Pipeline",
+   domain:"CS/DS",budget:28000,tier:"Practitioner",stage:"hiring",
+   daysLeft:7,applicants:12},
+  {id:"p4",title:"SolidWorks Gear Assembly CAD",
+   domain:"Mechanical",budget:18000,tier:"Apprentice",stage:"posted",
+   daysLeft:12,applicants:0},
+  {id:"p5",title:"React Admin Dashboard HR Analytics",
+   domain:"CS",budget:32000,tier:"Practitioner",stage:"complete",
+   daysLeft:0,applicants:9,assignedTo:"ravi-t",rating:4.9}
+]
+
+export const PAYMENTS = [
+  {date:"14 Jan",project:"ESP32 IoT Dashboard",candidate:"Arjun K.",
+   amount:7333,type:"Milestone 2/3",status:"completed",hash:"pay_4f2a"},
+  {date:"08 Jan",project:"ESP32 IoT Dashboard",candidate:"Arjun K.",
+   amount:7334,type:"Milestone 1/3",status:"completed",hash:"pay_2a7b"},
+  {date:"02 Jan",project:"React HR Dashboard",candidate:"Ravi T.",
+   amount:32000,type:"Full Payment",status:"completed",hash:"pay_7c1d"},
+  {date:"28 Dec",project:"Circuit FEA Analysis",candidate:"Arjun K.",
+   amount:18500,type:"Full Payment",status:"completed",hash:"pay_9d3f"},
+  {date:"20 Dec",project:"Python ML Pipeline",candidate:"Priya S.",
+   amount:24000,type:"Full Payment",status:"completed",hash:"pay_1f8e"}
+]
+
+export const SPEND_DATA = [
+  {month:"Jan",spend:18000,industry:65000},
+  {month:"Feb",spend:22000,industry:68000},
+  {month:"Mar",spend:28000,industry:72000},
+  {month:"Apr",spend:35000,industry:75000},
+  {month:"May",spend:42000,industry:80000},
+  {month:"Jun",spend:38000,industry:78000},
+  {month:"Jul",spend:48000,industry:82000},
+  {month:"Aug",spend:52000,industry:85000},
+  {month:"Sep",spend:44000,industry:80000},
+  {month:"Oct",spend:58000,industry:88000},
+  {month:"Nov",spend:62000,industry:90000},
+  {month:"Dec",spend:55000,industry:85000}
+]
+
+═══════════════════════════════════════════════════════════════
+COMPONENT FOLDER STRUCTURE
+═══════════════════════════════════════════════════════════════
+src/
+├── components/
+│   ├── ui/          (shadcn: Button Card Badge Input Select Sheet
+│   │                  Dialog Tabs Table Tooltip Toast Progress)
+│   ├── layout/      (Sidebar Navbar Layout CommandPalette
+│   │                  NotificationCenter)
+│   ├── charts/      (TFESGauge SkillRadar ScoreProgress
+│   │                  SpendChart DomainPie TFESDistribution)
+│   ├── talent/      (CandidateCard FilterSidebar AIMatchBanner
+│   │                  QuickPreviewPanel)
+│   ├── candidate/   (ProfileHeader BioCard MetricsRow TabsNav
+│   │                  SimulationTable BadgeWall ReviewsTab
+│   │                  HireActionBar)
+│   ├── pipeline/    (PipelineStages ProjectTable KanbanView
+│   │                  ApplicationsPanel PostProjectModal)
+│   ├── payments/    (EscrowWallet MilestoneModal PaymentTable
+│   │                  ROICards SpendAnalytics)
+│   └── reviewer/    (PendingQueue ReviewModal CompletedTable)
+├── pages/
+│   ├── Landing.tsx
+│   ├── Dashboard.tsx
+│   ├── TalentDiscovery.tsx
+│   ├── CandidatePortfolio.tsx
+│   ├── Pipeline.tsx
+│   ├── Projects.tsx
+│   ├── Payments.tsx
+│   ├── Reviewer.tsx
+│   └── Settings.tsx
+├── data/
+│   └── mockData.ts
+├── hooks/
+│   ├── useFilter.ts     (client-side filter logic)
+│   ├── useCountUp.ts    (number animation)
+│   └── useCommandK.ts   (keyboard shortcut)
+└── styles/
+    └── globals.css
+
+═══════════════════════════════════════════════════════════════
+INSTALL COMMANDS (Replit shell)
+═══════════════════════════════════════════════════════════════
+npm create vite@latest talentforge-hr -- --template react-ts
+cd talentforge-hr
+npm install react-router-dom recharts framer-motion
+npm install lucide-react react-hot-toast
+npm install @radix-ui/react-dialog @radix-ui/react-tabs
+npm install @radix-ui/react-tooltip @radix-ui/react-select
+npm install -D tailwindcss postcss autoprefixer
+npx tailwindcss init -p
+
+Add to index.css:
+  @import url('https://fonts.googleapis.com/css2?
+    family=Inter:wght@400;500;600;700;800&
+    family=JetBrains+Mono:wght@400;500&display=swap');
+  @tailwind base;
+  @tailwind components;
+  @tailwind utilities;
+
+tailwind.config: content ["./src/**/*.{ts,tsx}"]
+  extend.borderRadius: { '2xl': '1rem', '3xl': '1.5rem' }
+
+═══════════════════════════════════════════════════════════════
+FINAL RULES — NON-NEGOTIABLE
+═══════════════════════════════════════════════════════════════
+1.  NO AUTH. NO LOGIN. NO SIGNUP. Direct /dashboard access.
+2.  ALL data from mockData.ts — zero API calls
+3.  LIGHT THEME: #F5F5F5 page, white frosted glass cards
+4.  Inter everywhere · JetBrains Mono for scores/amounts/hashes
+5.  /candidate/:id is the HERO PAGE — 35% of build effort
+    TFES gauge + skill radar + simulation history = centrepiece
+6.  TFES score ALWAYS purple (#8B5CF6) on every screen
+7.  Amounts ALWAYS JetBrains Mono green (#16A34A)
+8.  Framer Motion on every card grid (stagger 0.08s)
+9.  All Recharts: transparent bg, #F3F4F6 grid, animated
+10. Client-side filters in /talent MUST work instantly
+11. Command Palette ⌘K must open on keyboard shortcut
+12. Milestone release modal MUST show CIE score + approval state
+13. Glassmorphism sidebar: backdrop-blur-xl bg white/80
+14. All shadcn/ui components dark text on light bg (no dark mode)
+15. Mobile responsive: sidebar → drawer on < 768px
+16. Skeleton loaders on every data table (shimmer animation)
+17. Toast notifications on all hire/payment/approve actions
+18. TypeScript strict mode — all props typed
+19. Visually investor-demo ready — premium SaaS quality
+20. Build ALL 9 pages — no placeholder screens
+
+Platform: TalentForge HR Portal · Nexoraai.co
+Audience: HR Managers · Talent Acquisition Teams · CTOs
+Tagline:  "Hire on Skill. Pay on Proof."
+Primary CTA: "Invite to Project"

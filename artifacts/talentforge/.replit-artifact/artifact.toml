@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "TalentForge HR Portal"
+version = "1.0.0"
+id = "artifacts/talentforge"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 23570
+
+[services.development]
+run = "pnpm --filter @workspace/talentforge run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/talentforge", "run", "build" ]
+publicDir = "artifacts/talentforge/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "23570"
+BASE_PATH = "/"
