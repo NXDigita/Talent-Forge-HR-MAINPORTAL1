@@ -562,9 +562,9 @@ export function AIMatchModal({ open, onClose }: Props) {
                                     <span className="font-bold" style={{ color: '#C2600A' }}>AI Insight:</span> {r.explanation || `${r.candidate.name} shows strong alignment with your project requirements, particularly in ${r.matchedSkills.slice(0, 2).join(" and ")}.`}
                                   </div>
                                   <div className="flex gap-4 text-[11px] text-gray-500">
-                                    <span><span className="font-bold text-gray-700">{r.candidate.simulations}</span> Simulations</span>
+                                    <span><span className="font-bold text-gray-700">{Array.isArray(r.candidate.simulations) ? r.candidate.simulations.length : r.candidate.simulations}</span> Simulations</span>
                                     <span><span className="font-bold text-gray-700">{r.candidate.projects}</span> Projects</span>
-                                    <span><span className="font-bold text-gray-700">{r.candidate.badges}</span> NFT Badges</span>
+                                    <span><span className="font-bold text-gray-700">{Array.isArray(r.candidate.badges) ? r.candidate.badges.length : r.candidate.badges}</span> NFT Badges</span>
                                     <span className="font-mono text-green-700 font-bold">₹{r.candidate.earned?.toLocaleString("en-IN")} earned</span>
                                   </div>
                                   <button
