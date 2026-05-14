@@ -10,9 +10,9 @@ type Candidate = {
   domain: string;
   tier: string;
   tfes: number;
-  simulations: number;
+  simulations: { id: string; project: string; domain: string; score: number; result: string; date: string; status: string; }[];
   projects: number;
-  badges: number;
+  badges: { name: string; score: number; hash: string; }[];
   earned: number;
   rating: number;
   available: boolean;
