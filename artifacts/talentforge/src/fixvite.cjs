@@ -3,12 +3,20 @@ const path = '../vite.config.ts';
 let content = fs.readFileSync(path, 'utf8');
 
 content = content.replace(
-  /const port = process\.env\.PORT;[\s\S]*?throw new Error\("PORT.*?"\);/,
-  'const port = process.env.PORT ?? "3000";'
-);
-content = content.replace(
-  /const basePath = process\.env\.BASE_PATH;[\s\S]*?throw new Error\("BASE_PATH.*?"\);/,
-  'const basePath = process.env.BASE_PATH ?? "/";'
+`const rawPort = process.env.PORT;
+
+if (!rawPort) {
+  throw new Error(
+    "PORT environment variable is required but was not provided.",
+  );
+}
+
+const port = Number(rawPort);
+
+if (Number.isNaN(port) || port <= 0) {
+  throw new Error(\`Invalid PORT value: "\${rawPort}"\`);
+}`,
+`const port = Number(process.env.PORT ?? "3000");`
 );
 
 fs.writeFileSync(path, content);
