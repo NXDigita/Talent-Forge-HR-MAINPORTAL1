@@ -102,6 +102,7 @@ export function PostProjectModal({ open, onClose, onPost }: Props) {
         stage: "posted",
         daysLeft,
         applicants: 0,
+      assignedTo: "",
         milestones: milestoneLabels.slice(0, milestoneCount).map((label, i) => ({ label, pct: milestonePcts[i] })),
         escrow: { total: budgetNum, released: 0, held: budgetNum, milestone: 0, of: milestoneCount },
       };
