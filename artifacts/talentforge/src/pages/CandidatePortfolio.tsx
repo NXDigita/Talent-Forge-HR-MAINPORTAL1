@@ -74,7 +74,7 @@ export function CandidatePortfolio() {
 
           <div className="grid grid-cols-3 gap-4">
             <div className="bg-white p-5 rounded-2xl border text-center shadow-sm">
-              <div className="text-4xl font-bold text-blue-600 mb-1">{candidate.simulations.length}</div>
+              <div className="text-4xl font-bold text-blue-600 mb-1">{Array.isArray(candidate.simulations) ? Array.isArray(candidate.simulations) ? candidate.simulations.length : candidate.simulations : candidate.simulations}</div>
               <div className="text-xs uppercase tracking-widest font-bold text-gray-400 mt-2">Simulations</div>
             </div>
             <div className="bg-white p-5 rounded-2xl border text-center shadow-sm">
@@ -82,7 +82,7 @@ export function CandidatePortfolio() {
               <div className="text-xs uppercase tracking-widest font-bold text-gray-400 mt-2">Projects Delivered</div>
             </div>
             <div className="bg-white p-5 rounded-2xl border text-center shadow-sm">
-              <div className="text-4xl font-bold text-purple-600 mb-1">{candidate.badges.length}</div>
+              <div className="text-4xl font-bold text-purple-600 mb-1">{Array.isArray(candidate.badges) ? Array.isArray(candidate.badges) ? candidate.badges.length : candidate.badges : candidate.badges}</div>
               <div className="text-xs uppercase tracking-widest font-bold text-gray-400 mt-2">NFT Credentials</div>
             </div>
           </div>
@@ -140,7 +140,7 @@ export function CandidatePortfolio() {
                   </tr>
                 </thead>
                 <tbody className="divide-y">
-                  {candidate.simulations.map((sim, i) => (
+                  {(Array.isArray(candidate.simulations) ? candidate.simulations : []).map((sim, i) => (
                     <motion.tr key={sim.id} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }} className="hover:bg-gray-50/50 transition-colors">
                       <td className="px-4 py-4 font-bold text-gray-900">{sim.project}</td>
                       <td className="px-4 py-4 text-gray-500">{sim.domain}</td>
@@ -164,7 +164,7 @@ export function CandidatePortfolio() {
 
             <TabsContent value="badges" className="m-0">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {candidate.badges.map((badge, i) => (
+                {(Array.isArray(candidate.badges) ? candidate.badges : []).map((badge, i) => (
                   <motion.div key={badge.name} initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: i * 0.05 }} 
                     className="flex items-center justify-between p-5 border rounded-2xl bg-gradient-to-r from-white to-purple-50/30 shadow-sm hover:shadow-md transition-all group">
                     <div>
